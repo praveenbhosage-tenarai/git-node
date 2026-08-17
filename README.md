@@ -23,6 +23,13 @@ Check the root route:
 curl http://127.0.0.1:8000/
 ```
 
+Create an employee with a POST request:
+```bash
+curl -sS -X POST http://127.0.0.1:8000/addemployee \
+  -H 'Content-Type: application/json' \
+  -d '{"empName":"Alice","empPass":"secret"}'
+```
+
 **Run with Docker**
 1. Build the image:
 ```bash
