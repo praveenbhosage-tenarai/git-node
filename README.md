@@ -1,19 +1,53 @@
-# Node.js Starter Project
-This is a simple starter project for Node.js applications.
-## Project Structure
-- `index.js` — Main entry point
-- `package.json` — Project metadata and dependencies
-## Getting Started
+# git-node
+Simple Node.js app with a Dockerfile and minimal routes.
+
+**Prerequisites:**
+- Node.js (v18+)
+- npm
+- Docker (optional, recommended for running the app in a container)
+- MongoDB if you use the models: mongodb://localhost:27017/Employees
+
+**Quick start (local)**
 1. Install dependencies:
 ```bash
 npm install
 ```
-2. Run the application:
+2. Run the app (development, uses nodemon):
 ```bash
-node index.js
+npm run start
 ```
-## Requirements
-- Node.js (v20 or higher recommended)
-- npm (Node Package Manager v11 or higher)
-## License
-MIT
+The app listens on port 8000.
+
+Check the root route:
+```bash
+curl http://127.0.0.1:8000/
+```
+
+**Run with Docker**
+1. Build the image:
+```bash
+sudo docker build -t git-node:latest .
+```
+2. Run the container (host networking so it can reach local MongoDB):
+```bash
+sudo docker run -d --name git-node --network host git-node:latest
+```
+3. View logs:
+```bash
+sudo docker logs -f git-node
+```
+
+**Files of interest**
+- [index.js](index.js) — app entry
+- [Dockerfile](Dockerfile) — image build
+- [controllers/controller.js](controllers/controller.js) — minimal route handlers
+
+**Rebuild after edits**
+Rebuild the image and restart the container:
+```bash
+sudo docker build -t git-node:latest .
+sudo docker rm -f git-node 2>/dev/null || true
+sudo docker run -d --name git-node --network host git-node:latest
+```
+
+License: MIT
