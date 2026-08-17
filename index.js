@@ -1,11 +1,13 @@
 const express = require('express');
 const routes = require('./routes/routes');
-const router = express.Router();
-routes(router);
 const port = 8000;
 const app = express();
+const router = express.Router();
+routes(router);
+app.use('/', router);
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+
 app.listen(port, function(){
-console.log("Listening " + port);
+	console.log("Listening " + port);
 });
